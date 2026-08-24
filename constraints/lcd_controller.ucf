@@ -1,0 +1,41 @@
+#=====================================================================
+#  lcd_controller.ucf  --  Xilinx ISE constraints, Spartan-6
+#
+#  TEMPLATE. Every LOC below is a placeholder -- replace each one with
+#  the actual pin from your board's schematic or user guide. A bitstream
+#  built with wrong LOCs programs happily and does nothing, which is a
+#  slow and confusing way to lose an afternoon.
+#
+#  IOSTANDARD is LVCMOS33 for a 3.3 V LCD header. Check yours: a 5 V
+#  HD44780 module will usually read 3.3 V logic levels correctly, but
+#  its own Vdd still needs 5 V for the contrast rail to work.
+#=====================================================================
+
+# ---- clock ----------------------------------------------------------
+NET "clk"  LOC = "P123" | IOSTANDARD = LVCMOS33;
+NET "clk"  TNM_NET = "clk";
+TIMESPEC TS_clk = PERIOD "clk" 20 ns HIGH 50%;   # 50 MHz
+
+# ---- reset (active high -- pushbutton or slide switch) --------------
+NET "rst"  LOC = "P124" | IOSTANDARD = LVCMOS33 | PULLDOWN;
+
+# ---- HD44780 control ------------------------------------------------
+#  SLEW = SLOW is deliberate: these lines run to an off-board header,
+#  and fast edges on a ribbon cable are a good way to make an LCD
+#  latch noise instead of data.
+NET "rs"   LOC = "P131" | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = SLOW;
+NET "rw"   LOC = "P132" | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = SLOW;
+NET "en"   LOC = "P133" | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = SLOW;
+
+# ---- HD44780 8-bit data bus ----------------------------------------
+NET "data<0>" LOC = "P134" | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = SLOW;
+NET "data<1>" LOC = "P135" | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = SLOW;
+NET "data<2>" LOC = "P137" | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = SLOW;
+NET "data<3>" LOC = "P138" | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = SLOW;
+NET "data<4>" LOC = "P139" | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = SLOW;
+NET "data<5>" LOC = "P140" | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = SLOW;
+NET "data<6>" LOC = "P141" | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = SLOW;
+NET "data<7>" LOC = "P142" | IOSTANDARD = LVCMOS33 | DRIVE = 8 | SLEW = SLOW;
+
+# ---- optional status output ----------------------------------------
+# NET "ready" LOC = "P143" | IOSTANDARD = LVCMOS33;   # tie to an LED
