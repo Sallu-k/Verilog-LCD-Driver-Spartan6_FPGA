@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 560" width="1060" height="560" font-family="Helvetica, Arial, sans-serif">
+<rect width="1060" height="560" fill="#ffffff"/>
+<defs>
+  <marker id="ar" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+    <path d="M0,0 L10,4 L0,8 Z" fill="#111"/>
+  </marker>
+</defs>
+
+<text x="34" y="42" font-size="21" font-weight="bold" fill="#111">lcd_controller — FSM</text>
+<text x="34" y="64" font-size="12.5" fill="#666">Every transition advances on one EN strobe: byte presented, EN high one settle window, EN low. The HD44780 latches on the falling edge.</text>
+<line x1="34" y1="80" x2="1026" y2="80" stroke="#111" stroke-width="1.5"/>
+
+<!-- row 1: init -->
+<rect x="34" y="120" width="150" height="62" rx="6" fill="#f4f4f4" stroke="#111" stroke-width="2"/>
+<text x="109" y="146" font-size="13" font-weight="bold" fill="#111" text-anchor="middle">POWER_UP</text>
+<text x="109" y="166" font-size="11" fill="#666" text-anchor="middle">wait 20 ms</text>
+
+<rect x="228" y="120" width="150" height="62" rx="6" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="303" y="146" font-size="13" font-weight="bold" fill="#111" text-anchor="middle">FUNCTION_SET</text>
+<text x="303" y="166" font-size="11" fill="#666" text-anchor="middle">0x38 · 8-bit, 2 line</text>
+
+<rect x="422" y="120" width="150" height="62" rx="6" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="497" y="146" font-size="13" font-weight="bold" fill="#111" text-anchor="middle">DISPLAY_ON</text>
+<text x="497" y="166" font-size="11" fill="#666" text-anchor="middle">0x0C</text>
+
+<rect x="616" y="120" width="150" height="62" rx="6" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="691" y="146" font-size="13" font-weight="bold" fill="#111" text-anchor="middle">CLEAR</text>
+<text x="691" y="166" font-size="11" fill="#666" text-anchor="middle">0x01</text>
+
+<rect x="810" y="120" width="182" height="62" rx="6" fill="#fdf3f2" stroke="#c0392b" stroke-width="2.5"/>
+<text x="901" y="146" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">CLEAR_WAIT</text>
+<text x="901" y="166" font-size="11" fill="#c0392b" text-anchor="middle">2.05 ms</text>
+
+<line x1="184" y1="151" x2="224" y2="151" stroke="#111" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="378" y1="151" x2="418" y2="151" stroke="#111" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="572" y1="151" x2="612" y2="151" stroke="#111" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="766" y1="151" x2="806" y2="151" stroke="#111" stroke-width="2" marker-end="url(#ar)"/>
+
+<!-- down connector -->
+<line x1="1010" y1="151" x2="1030" y2="151" stroke="#111" stroke-width="0"/>
+<line x1="901" y1="182" x2="901" y2="232" stroke="#111" stroke-width="2"/>
+<line x1="901" y1="232" x2="20" y2="232" stroke="#111" stroke-width="2"/>
+<line x1="20" y1="232" x2="20" y2="283" stroke="#111" stroke-width="2"/>
+<line x1="20" y1="283" x2="30" y2="283" stroke="#111" stroke-width="2" marker-end="url(#ar)"/>
+
+<!-- row 2: write -->
+<rect x="34" y="252" width="150" height="62" rx="6" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="109" y="278" font-size="13" font-weight="bold" fill="#111" text-anchor="middle">ENTRY_MODE</text>
+<text x="109" y="298" font-size="11" fill="#666" text-anchor="middle">0x06 · increment</text>
+
+<rect x="228" y="252" width="150" height="62" rx="6" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="303" y="278" font-size="13" font-weight="bold" fill="#111" text-anchor="middle">SET_LINE1</text>
+<text x="303" y="298" font-size="11" fill="#666" text-anchor="middle">0x80 · DDRAM</text>
+
+<rect x="422" y="252" width="150" height="62" rx="6" fill="#eef6f9" stroke="#2471a3" stroke-width="2.5"/>
+<text x="497" y="278" font-size="13" font-weight="bold" fill="#2471a3" text-anchor="middle">WRITE1</text>
+<text x="497" y="298" font-size="11" fill="#2471a3" text-anchor="middle">rs=1 · 11 chars</text>
+
+<rect x="616" y="252" width="150" height="62" rx="6" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="691" y="278" font-size="13" font-weight="bold" fill="#111" text-anchor="middle">SET_LINE2</text>
+<text x="691" y="298" font-size="11" fill="#666" text-anchor="middle">0xC0 · DDRAM</text>
+
+<rect x="810" y="252" width="150" height="62" rx="6" fill="#eef6f9" stroke="#2471a3" stroke-width="2.5"/>
+<text x="885" y="278" font-size="13" font-weight="bold" fill="#2471a3" text-anchor="middle">WRITE2</text>
+<text x="885" y="298" font-size="11" fill="#2471a3" text-anchor="middle">rs=1 · 12 chars</text>
+
+<line x1="184" y1="283" x2="224" y2="283" stroke="#111" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="378" y1="283" x2="418" y2="283" stroke="#111" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="572" y1="283" x2="612" y2="283" stroke="#111" stroke-width="2" marker-end="url(#ar)"/>
+<line x1="766" y1="283" x2="806" y2="283" stroke="#111" stroke-width="2" marker-end="url(#ar)"/>
+
+<!-- self loops on write states -->
+<path d="M 470,252 Q 470,214 497,214 Q 524,214 524,252" fill="none" stroke="#2471a3" stroke-width="2" marker-end="url(#ar)"/>
+<text x="497" y="208" font-size="10.5" fill="#2471a3" text-anchor="middle">char_count++</text>
+<path d="M 858,252 Q 858,214 885,214 Q 912,214 912,252" fill="none" stroke="#2471a3" stroke-width="2" marker-end="url(#ar)"/>
+<text x="885" y="208" font-size="10.5" fill="#2471a3" text-anchor="middle">char_count++</text>
+
+<!-- to DONE -->
+<line x1="885" y1="314" x2="885" y2="344" stroke="#111" stroke-width="2"/>
+<line x1="885" y1="344" x2="497" y2="344" stroke="#111" stroke-width="2"/>
+<line x1="497" y1="344" x2="497" y2="378" stroke="#111" stroke-width="2" marker-end="url(#ar)"/>
+
+<rect x="422" y="382" width="150" height="58" rx="6" fill="#f4f4f4" stroke="#111" stroke-width="2"/>
+<text x="497" y="408" font-size="13" font-weight="bold" fill="#111" text-anchor="middle">DONE</text>
+<text x="497" y="428" font-size="11" fill="#666" text-anchor="middle">ready = 1 · hold</text>
+
+<!-- notes -->
+<line x1="34" y1="472" x2="1026" y2="472" stroke="#ddd" stroke-width="1"/>
+<rect x="34" y="486" width="14" height="14" fill="#fdf3f2" stroke="#c0392b" stroke-width="2"/>
+<text x="58" y="498" font-size="11.5" fill="#555">CLEAR_WAIT exists because Clear Display takes 1.52 ms — roughly 40× every other command. Issue the next command too early and it is ignored.</text>
+<rect x="34" y="512" width="14" height="14" fill="#eef6f9" stroke="#2471a3" stroke-width="2"/>
+<text x="58" y="524" font-size="11.5" fill="#555">Write states hold rs=1 and loop on themselves, streaming one ASCII byte per EN strobe until char_count reaches the end of the message.</text>
+<text x="34" y="546" font-size="11.5" fill="#888">RW is tied low, so the busy flag is never polled and every wait above is a fixed delay sized from the datasheet.</text>
+</svg>
